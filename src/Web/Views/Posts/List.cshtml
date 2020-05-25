@@ -1,0 +1,18 @@
+@{
+    ViewData["Title"] = "Posts";
+}
+
+@section Subnav {
+    <li class="nav-item">
+        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="">Placeholder 2</a>
+    </li>
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    @if (ViewBag.Query is {})
+    {
+        <p>You queried @ViewBag.Query</p>
+    }
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

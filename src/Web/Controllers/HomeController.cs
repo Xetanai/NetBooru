@@ -1,36 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NetBooru.Data;
-using Web.Models;
+using Microsoft.Extensions.Options;
+using NetBooru.Web.Models;
+using NetBooru.Web.Options;
 
-namespace Web.Controllers
+namespace NetBooru.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly NetBooruContext _dbContext;
         private readonly ILogger<HomeController> _logger;
+        private readonly IOptionsMonitor<LandingOptions> _options;
 
-        public HomeController(ILogger<HomeController> logger,
-            NetBooruContext dbContext)
+        private readonly Random _rng;
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IOptionsMonitor<LandingOptions> options)
         {
-            _dbContext = dbContext;
             _logger = logger;
+            _options = options;
+
+            _rng = new Random();
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            _logger.LogWarning("Test");
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var options = _options.CurrentValue;
+
+            return options.DisplayLandingPage
+                ? View(new PostCountViewModel
+                {
+                    PostCount = _rng.Next()
+                }) as IActionResult
+                : RedirectToActionPermanent(
+                    nameof(PostsController.List),
+                    nameof(PostsController));
         }
     }
 }
