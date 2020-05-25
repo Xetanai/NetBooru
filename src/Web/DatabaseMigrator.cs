@@ -1,3 +1,4 @@
+using System.Security.Cryptography.Xml;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,26 @@ namespace NetBooru.Web
                 .GetRequiredService<NetBooruContext>();
 
             await context.Database.MigrateAsync(cancellationToken);
+
+
+            // TODO: Enfore that these be ID 0
+            var tagme = new Tag()
+            {
+                Name = "tagme",
+                //Id = 0
+            };
+
+            var anon = new User()
+            {
+                Username = "Anonymous",
+                //Id = 0,
+                UseDarkMode = false
+            };
+
+            context.Update(tagme);
+            context.Update(anon);
+
+            await context.SaveChangesAsync();
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
