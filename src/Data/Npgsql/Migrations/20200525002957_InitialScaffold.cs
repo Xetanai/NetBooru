@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace NetBooru.Web.Migrations
+namespace NetBooru.Data.Migrations
 {
     public partial class InitialScaffold : Migration
     {

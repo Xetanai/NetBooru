@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBooru.Data;
 
-namespace NetBooru.Web.Migrations
+namespace NetBooru.Data.Migrations
 {
     [DbContext(typeof(NetBooruContext))]
     partial class NetBooruContextModelSnapshot : ModelSnapshot
