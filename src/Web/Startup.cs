@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetBooru.Data;
+using NetBooru.Web.Options;
 
 namespace NetBooru.Web
 {
@@ -28,6 +29,9 @@ namespace NetBooru.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            _ = services.Configure<LandingOptions>(
+                Configuration.GetSection("Landing"));
+
             var connectionString =
                 Configuration.GetConnectionString("Database");
 
