@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBooru.Data;
 
-namespace NetBooru.Web.Migrations
+namespace NetBooru.Data.Migrations
 {
     [DbContext(typeof(NetBooruContext))]
     [Migration("20200525014816_FixTagPostRelationship")]

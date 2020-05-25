@@ -1,4 +1,4 @@
-namespace Web.Models
+namespace NetBooru.Web.Models
 {
     public class ErrorViewModel
     {
