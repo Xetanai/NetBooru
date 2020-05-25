@@ -30,4 +30,9 @@
     <Exec Command="dotnet ef database update $(EfMigrationName) -p $(MSBuildProjectFullPath) -s $(EfMigrationStartupProject) --msbuildprojectextensionspath $(EfMigrationExtensionsPath)" />
   </Target>
 
+  <Target Name="DatabaseDrop">
+    <Exec Command="dotnet ef database drop -p $(MSBuildProjectFullPath) -s $(EfMigrationStartupProject) --msbuildprojectextensionspath $(EfMigrationExtensionsPath)" />
+  </Target>
+
+
 </Project>
