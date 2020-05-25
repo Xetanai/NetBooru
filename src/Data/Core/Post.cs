@@ -9,43 +9,33 @@ namespace NetBooru.Data
     public class Post
     {
         /// <summary>
-        /// Unique ID for this post.
+        /// The unique ID of the post
         /// </summary>
-        public ulong Id { get; set; }
+        public string Id { get; set; } = null!;
 
         /// <summary>
-        /// The user who uploaded this post, or null if in a single-user environment.
+        /// The user who uploaded the post
         /// </summary>
-        public User? Uploader { get; set; }
+        public virtual User Uploader { get; set; } = null!;
 
         /// <summary>
-        /// The hash of the post. Used for rudimentary duplicate checking and file location.
+        /// The md5 hash of the file uploaded
         /// </summary>
         public string Hash { get; set; } = null!;
 
         /// <summary>
-        /// The extension of the post. png, jpg, webm, etc.
+        /// The post's filetype-specific metadata
         /// </summary>
-        public string Extension { get; set; } = null!;
+        public virtual PostMetadata Meta { get; set; } = null!;
 
         /// <summary>
-        /// The parent post of this post. Can be (and usually is) null.
+        /// The post's parent
         /// </summary>
-        public Post? Parent {get; set;}
+        public virtual Post? Parent { get; set; }
 
         /// <summary>
-        /// A possibly (and usually) empty list of child posts to this post.
+        /// The post's children
         /// </summary>
-        public IList<Post?> Children { get; set; } = null!;
-
-        /// <summary>
-        /// The score of the post. Will always be 0 in single-user environments.
-        /// </summary>
-        public int Score { get; set; }
-
-        /// <summary>
-        /// The tags for this post
-        /// </summary>
-        public IList<PostTag> PostTags { get; set; } = null!;
+        public virtual ICollection<Post?> Children { get; set; } = null!;
     }
 }
