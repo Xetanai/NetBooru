@@ -1,0 +1,39 @@
+uploading:
+tags: [miku, female]
+after canonicalising:
+tags: [character:hatsune_miku, gender:female]
+
+querying:
+tags: [miku, gender:female]
+after canonicalising:
+tags: [character:hatsune_miku, gender:female]
+
+Hierarchy:
+- Tag
+  - Alias (replaces current tag with target tag)
+  - Implicit (implies target tag)
+Example:
+step 0 canonicalising: [miku] (user input after tokenising)
+step 1 canonicalising: [character:hatsune_miku] (replace 'miku' alias tag)
+step 2 canonicalising: [character:hatsune_miku, vocaloid] (add 'vocaloid' implicit tag)
+step 3 canonicalising: [character:hatsune_miku, series:vocaloid] (replace 'vocaloid' alias tag)
+final canonicalised form: [character:hatsune_miku, series:vocaloid] (stored in database)
+
+It's absolutely necessary to make sure all implicit tags are added at upload time, but unless our later tests
+show that there's a benefit to doing otherwise, it's not at all necessary to care about them on user searches.
+All implicit tags are inherently more broad than the tags that imply them, so they add nothing to a search.
+
+Aliases, however, should be applied any time tags are supplied by users, uploading or searching.
+
+More info about tag formatting can be seen here, where I've annotated a Danbooru image.
+https://cdn.discordapp.com/attachments/596902392675696641/714246927574630512/unknown.png
+
+The example tag "character:hatsune_miku" would imply "series:vocaloid", while also likely being aliased to a less cumbersome form, like "hatsune:miku".
+In the end, an end user might upload an image, tag it "hatsune_miku", and all appropriate modifications would be made ***IN THE FOREGROUND***, not hidden from the user.
+(Note, this does not necessarily have to be via text. Many boorus do this solely by color.)
+
+so, firstly, upon uploading, their tag "hatsune_miku" would match the AliasTag by the same name, and be morphed into "character:hatsune_miku"
+Then, "character:hatsune_miku" having an ImplicitTag of "series:vocaloid", said tag would be added onto the upload, but not necessarily a search
+
+
+We'll fuck with meta tags later lol

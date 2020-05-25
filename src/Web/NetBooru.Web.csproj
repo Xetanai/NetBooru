@@ -1,9 +1,28 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <DatabaseProvider Condition="'$(DatabaseProvider)' == ''">npgsql</DatabaseProvider>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Data/Core/NetBooru.Data.csproj" />
+
+    <ProjectReference Include="../Data/InMemory/NetBooru.Data.InMemory.csproj" Condition="'$(DatabaseProvider)' == 'memory'" />
+    <ProjectReference Include="../Data/Npgsql/NetBooru.Data.Npgsql.csproj" Condition="'$(DatabaseProvider)' == 'npgsql'" />
+    <ProjectReference Include="../Data/Sqlite/NetBooru.Data.Sqlite.csproj" Condition="'$(DatabaseProvider)' == 'sqlite'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+  </ItemGroup>
+
+  <Target Name="DatabaseUpdate">
+    <Exec Command="dotnet ef database update $(EfMigrationName) -p $(MSBuildProjectFullPath) -s $(EfMigrationStartupProject) --msbuildprojectextensionspath $(EfMigrationExtensionsPath)" />
+  </Target>
 
 </Project>

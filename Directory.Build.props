@@ -78,6 +78,12 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
+  <!-- Settings used for EF targets -->
+  <PropertyGroup>
+    <EfMigrationStartupProject>$(MSBuildThisFileDirectory)src\Web\NetBooru.Web.csproj</EfMigrationStartupProject>
+    <EfMigrationExtensionsPath>$(BaseIntermediateOutputPath)</EfMigrationExtensionsPath>
+  </PropertyGroup>
+
   <!-- Package references which are consumed by all .NET projects -->
   <ItemGroup>
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" IsImplicitlyDefined="true" PrivateAssets="all" />
