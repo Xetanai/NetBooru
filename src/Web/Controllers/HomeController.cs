@@ -26,8 +26,6 @@ namespace NetBooru.Web.Controllers
 
         public IActionResult Index()
         {
-            _logger.LogWarning("Test");
-
             var options = _options.CurrentValue;
 
             return options.DisplayLandingPage

@@ -39,6 +39,9 @@ namespace NetBooru.Web
                 _ = DatabaseProvider.ConfigureProvider(
                     builder, connectionString));
 
+            if (Environment.IsDevelopment())
+                _ = services.AddHostedService<DatabaseMigrator>();
+
             var mvc = services.AddControllersWithViews();
 
             if (Environment.IsDevelopment())

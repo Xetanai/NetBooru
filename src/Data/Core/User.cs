@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace NetBooru.Data
 {
     /// <summary>
@@ -21,9 +23,10 @@ namespace NetBooru.Data
         public bool HasAvatar { get; set; }
 
         /// <summary>
-        /// This user's preferences.
+        /// <c>true</c> if the user is using the dark mode theme to view the
+        /// site.
         /// </summary>
-        public UserPrefs Preferences { get; set; } = null!;
+        public bool UseDarkMode { get; set; }
 
     }
 }

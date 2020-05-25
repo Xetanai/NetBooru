@@ -110,6 +110,9 @@ namespace NetBooru.Data.Migrations
                     b.Property<bool>("HasAvatar")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("UseDarkMode")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("TEXT");
