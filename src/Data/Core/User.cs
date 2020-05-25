@@ -20,5 +20,10 @@ namespace NetBooru.Data
         /// </summary>
         public bool HasAvatar { get; set; }
 
+        /// <summary>
+        /// This user's preferences.
+        /// </summary>
+        public UserPrefs Preferences { get; set; } = null!;
+
     }
 }
