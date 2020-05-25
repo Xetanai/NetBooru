@@ -36,8 +36,12 @@ namespace NetBooru.Web
                 Configuration.GetConnectionString("Database");
 
             _ = services.AddDbContext<NetBooruContext>(builder =>
+            {
+                _ = builder.UseLazyLoadingProxies();
+
                 _ = DatabaseProvider.ConfigureProvider(
-                    builder, connectionString));
+                    builder, connectionString);
+            });
 
             if (Environment.IsDevelopment())
                 _ = services.AddHostedService<DatabaseMigrator>();
