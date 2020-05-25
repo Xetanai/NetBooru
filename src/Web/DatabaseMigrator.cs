@@ -27,6 +27,10 @@ namespace NetBooru.Web
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
-            => Task.FromCanceled(cancellationToken);
+        {
+            return cancellationToken.IsCancellationRequested
+                ? Task.FromCanceled(cancellationToken)
+                : Task.CompletedTask;
+        }
     }
 }
