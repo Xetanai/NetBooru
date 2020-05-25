@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="appsettings.json;appsettings.*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../Data/Core/NetBooru.Data.csproj" />
 
     <ProjectReference Include="../Data/InMemory/NetBooru.Data.InMemory.csproj" Condition="'$(DatabaseProvider)' == 'memory'" />
