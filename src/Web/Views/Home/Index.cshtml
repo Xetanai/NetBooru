@@ -1,14 +1,15 @@
 @{
-    ViewData["Title"] = "Posts";
+    Layout = "_LayoutMinimal";
 }
 
-@section Subnav {
-    <li class="nav-item">
-        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="">Placeholder 2</a>
-    </li>
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<header>
+    <div class="landing-brand">NetBooru</div>
+    <nav>
+        <ul class="landing-nav">
+            <li class="landing-nav-item">
+                <a class="landing-nav-link" asp-area="" asp-controller="Home" asp-action="Posts">Post Listing</a>
+            </li>
+        </ul>
+    </nav>
+</header>

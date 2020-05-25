@@ -1,0 +1,23 @@
+<!-- Minimal Razor layout, used for pages that should have no extraneous components-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NetBooru</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open%20Sans" />
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container">
+            &copy; 2020 - NetBooru - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+        </div>
+    </footer>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <nav class="border-bottom">
+        <nav class="nav-top border-bottom">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NetBooru</a>
             <div class="container">
                 <ul class="navbar-nav">
@@ -17,7 +17,7 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Account">My Account</a> <!-- TODO: Hide if single-user. Replace with "Login" if not logged in. -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Posts</a> <!-- TODO: Add a toggle for the counter stuff -->
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Posts">Posts</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav subnav">
@@ -47,7 +47,6 @@
             &copy; 2020 - NetBooru - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
         </div>
     </footer>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
