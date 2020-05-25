@@ -24,6 +24,7 @@
     <PackageReference Update="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0-preview.4.20257.10" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.4.20220.10" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.0-preview.4.20220.10" />
+    <PackageReference Update="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0-preview.4.20220.10" />
     <PackageReference Update="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-preview.4.20220.10" />
     <PackageReference Update="Microsoft.Net.Compilers.Toolset" Version="3.6.0-3.final" />
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" />
