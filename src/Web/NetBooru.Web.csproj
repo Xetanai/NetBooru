@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <UserSecretsId>db3020f2-e8bb-44ed-a267-7d092297836b</UserSecretsId>
 
     <DatabaseProvider Condition="'$(DatabaseProvider)' == ''">npgsql</DatabaseProvider>
   </PropertyGroup>
