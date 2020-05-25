@@ -1,0 +1,72 @@
+Post:
+- Id (Primary Key) - Id
+- Owner - Id
+- Hash - String
+- ParentId - Id?
+- Children - Id[]?
+
+PostTag:
+- ImageId (Index, Composite Primary Key) - Id
+- TagId (Index, Composite Primary Key) - Id
+
+PostMetadata:
+- ImageId (Index) - Id
+- Filesize - int
+- UploadDateTime - DateTime
+- Source - string
+- Locked - bool
+- MimeType - String
+  - ImagePostMetadata: (image/*)
+    - Width
+    - Height
+  - AudioPostMetadata: (audio/*)
+    - Length
+    - SampleRate
+  - VideoPostMetadata: (video/*)
+    - Length
+    - Width
+    - Height
+
+Tag:
+- Id (Primary Key) - Id
+- Name (Index, Unique) - String
+- CategoryId - Id
+
+TagCategory:
+- Id (Primary Key) - Id
+- Name (Index, Unique) - String
+- Color - int
+
+TagAlias:
+- Name (Index, Unique) - String
+- TagId (Index) - Id
+
+TagImplication:
+- SourceId (Primary Key) - Id
+- TagId (Index) - Id
+
+User: (ASP.Net Identity!!!)
+- ThemeId - String
+
+*** STRETCH ***
+
+Comment:
+- Id (Primary Key) - Id
+- PostId (Index, Foreign Key) - Id
+- UserId (Index, Foreign Key) - Id
+- UserIp - String
+- Time - Timestamp
+
+PostNote:
+- Id (Primary Key) - Id
+- PostId (Index, Foreign Key)- Id
+- X - int
+- Y - int
+- W - int
+- H - int
+-- IF SOME SOLUTION FOR VIDEOS IS FOUND, TIMESTAMP
+- Text - String
+
+
+
+
