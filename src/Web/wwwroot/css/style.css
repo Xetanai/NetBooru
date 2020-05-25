@@ -1,8 +1,12 @@
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+/*
+    STANDARD ELEMENTS
+*/
 html {
     font-size: 12px;
+    font-family: "Open Sans", Arial, Helvetica, sans-serif;
     position: relative;
     min-height: 100%;
 }
@@ -25,13 +29,32 @@ li {
 }
 
 a {
-    font-family: "Open Sans";
     color: rgba(0,147,255,1);
     text-decoration: none;
 }
 
+/*
+    Common styling
+*/
 .border-bottom {
     border-bottom: 1px solid black;
+}
+
+/*
+    Dark mode
+*/
+
+.root-dark {
+    background-color: rgb(15, 20, 30);
+    color: #DDD;
+}
+
+.subnav.subnav-dark {
+    background-color: rgba(30, 40, 60, 1);
+}
+
+li.li-dark {
+    border-right: 1px solid rgba(255,255,255,0.25);
 }
 
 /*
