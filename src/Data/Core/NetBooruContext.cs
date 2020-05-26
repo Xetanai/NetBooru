@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace NetBooru.Data
@@ -5,7 +7,8 @@ namespace NetBooru.Data
     /// <summary>
     ///
     /// </summary>
-    public class NetBooruContext : DbContext
+    public class NetBooruContext
+        : IdentityDbContext<User, IdentityRole<ulong>, ulong>
     {
         /// <summary>
         ///
@@ -22,11 +25,6 @@ namespace NetBooru.Data
         /// </summary>
         public DbSet<Tag> Tags { get; set; } = null!;
 
-        /// <summary>
-        /// TODO: replace this with ASP.Net Auth
-        /// </summary>
-        public DbSet<User> Users { get; set; } = null!;
-
         /// <inheritdoc/>
         public NetBooruContext(DbContextOptions<NetBooruContext> options)
             : base(options)
@@ -35,16 +33,9 @@ namespace NetBooru.Data
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            _ = builder.Entity<PostTag>()
-                .HasKey(t => new { t.PostId, t.TagId });
-
-            _ = builder.Entity<PostTag>()
-                .HasOne(pt => pt.Post)
-                .WithMany(p => p.PostTags);
-
-            _ = builder.Entity<PostTag>()
-                .HasOne(pt => pt.Tag)
-                .WithMany(t => t.PostTags);
+            _ = builder.Entity<User>()
+                .Property(u => u.Id)
+                .HasConversion<long>();
         }
     }
 }
