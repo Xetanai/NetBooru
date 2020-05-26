@@ -8,7 +8,7 @@ namespace NetBooru.Data
     ///
     /// </summary>
     public class NetBooruContext
-        : IdentityDbContext<User, IdentityRole<ulong>, ulong>
+        : IdentityDbContext<User, Role, ulong>
     {
         /// <summary>
         ///

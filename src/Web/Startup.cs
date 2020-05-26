@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,10 @@ namespace NetBooru.Web
                     builder, connectionString);
             });
 
+            _ = services
+                .AddIdentity<User, Role>()
+                .AddDefaultTokenProviders();
+
             if (Environment.IsDevelopment())
                 _ = services.AddHostedService<DatabaseMigrator>();
 
@@ -72,6 +77,7 @@ namespace NetBooru.Web
 
                 .UseRouting()
 
+                .UseAuthentication()
                 .UseAuthorization()
 
                 .UseEndpoints(endpoints =>
