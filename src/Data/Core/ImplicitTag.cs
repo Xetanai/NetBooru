@@ -5,11 +5,16 @@ namespace NetBooru.Data
     /// <summary>
     /// Represents a tag which implies one or more other tags.
     /// </summary>
-    public class ImplicitTag : Tag
+    public class ImplicitTag
     {
         /// <summary>
-        /// List of tags which are implied by this tag.
+        /// The tag which implicates the target
         /// </summary>
-        public IList<Tag?> Targets { get; set; } = null!;
+        public virtual Tag Source { get; set; } = null!;
+
+        /// <summary>
+        /// Tag which is implicated by the source tag
+        /// </summary>
+        public virtual Tag Target { get; set; } = null!;
     }
 }

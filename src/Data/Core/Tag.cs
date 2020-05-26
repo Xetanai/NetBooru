@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NetBooru.Data
 {
@@ -21,11 +20,11 @@ namespace NetBooru.Data
         /// <summary>
         /// The category, if any, this tag falls under.
         /// </summary>
-        public TagCategory? Category { get; set; }
+        public virtual TagCategory? Category { get; set; }
 
         /// <summary>
         /// The posts for this tag.
         /// </summary>
-        public IList<PostTag> PostTags { get; set; } = null!;
+        public virtual ICollection<PostTag> PostTags { get; set; } = null!;
     }
 }

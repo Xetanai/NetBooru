@@ -16,36 +16,36 @@ PostMetadata:                        DONE
 - Source - string
 - Locked - bool
 - MimeType - String
-  - ImagePostMetadata: (image/*)    TODO
+  - ImagePostMetadata: (image/*)    DONE
     - Width
     - Height
-  - AudioPostMetadata: (audio/*)    TODO
+  - AudioPostMetadata: (audio/*)    DONE
     - Length
     - SampleRate
-  - VideoPostMetadata: (video/*)    TODO
+  - VideoPostMetadata: (video/*)    DONE
     - Length
     - Width
     - Height
 
-Tag:                                TODO
+Tag:                                DONE
 - Id (Primary Key) - Id
 - Name (Index, Unique) - String
 - CategoryId - Id
 
-TagCategory:                        TODO
+TagCategory:                        DONE
 - Id (Primary Key) - Id
 - Name (Index, Unique) - String
 - Color - int
 
-TagAlias:                           TODO
+TagAlias:                           DONE
 - Name (Index, Unique) - String
 - TagId (Index) - Id
 
-TagImplication:                     TODO
+TagImplication:                     DONE
 - SourceId (Primary Key) - Id
 - TagId (Index) - Id
 
-User: (ASP.Net Identity!!!)         TODO, MONI!
+User: (ASP.Net Identity!!!)         DONE
 - ThemeId - String
 
 *** STRETCH ***

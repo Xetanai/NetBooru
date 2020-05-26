@@ -3,11 +3,16 @@ namespace NetBooru.Data
     /// <summary>
     /// Represents a tag which is aliased to another tag.
     /// </summary>
-    public class AliasTag : Tag
+    public class AliasTag
     {
         /// <summary>
-        /// The tag which this tag resolves to.
+        /// The source phrase to resolve from
         /// </summary>
-        public Tag Target { get; set; } = null!;
+        public string Source { get; set; } = null!;
+
+        /// <summary>
+        /// The tag which this tag resolves to
+        /// </summary>
+        public virtual Tag Target { get; set; } = null!;
     }
 }
