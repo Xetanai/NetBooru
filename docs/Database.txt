@@ -1,4 +1,4 @@
-Post:
+Post:                               DONE
 - Id (Primary Key) - Id
 - Owner - Id
 - Hash - String
@@ -9,43 +9,43 @@ PostTag:
 - ImageId (Index, Composite Primary Key) - Id
 - TagId (Index, Composite Primary Key) - Id
 
-PostMetadata:
+PostMetadata:                        DONE
 - ImageId (Index) - Id
 - Filesize - int
 - UploadDateTime - DateTime
 - Source - string
 - Locked - bool
 - MimeType - String
-  - ImagePostMetadata: (image/*)
+  - ImagePostMetadata: (image/*)    TODO
     - Width
     - Height
-  - AudioPostMetadata: (audio/*)
+  - AudioPostMetadata: (audio/*)    TODO
     - Length
     - SampleRate
-  - VideoPostMetadata: (video/*)
+  - VideoPostMetadata: (video/*)    TODO
     - Length
     - Width
     - Height
 
-Tag:
+Tag:                                TODO
 - Id (Primary Key) - Id
 - Name (Index, Unique) - String
 - CategoryId - Id
 
-TagCategory:
+TagCategory:                        TODO
 - Id (Primary Key) - Id
 - Name (Index, Unique) - String
 - Color - int
 
-TagAlias:
+TagAlias:                           TODO
 - Name (Index, Unique) - String
 - TagId (Index) - Id
 
-TagImplication:
+TagImplication:                     TODO
 - SourceId (Primary Key) - Id
 - TagId (Index) - Id
 
-User: (ASP.Net Identity!!!)
+User: (ASP.Net Identity!!!)         TODO, MONI!
 - ThemeId - String
 
 *** STRETCH ***
