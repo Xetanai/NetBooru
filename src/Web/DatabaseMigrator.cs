@@ -26,23 +26,32 @@ namespace NetBooru.Web
 
             await context.Database.MigrateAsync(cancellationToken);
 
-
-            // TODO: Enfore that these be ID 0
-            var tagme = new Tag()
+            // Has all permissions, no matter what.
+            context.Roles.Add(new Role()
             {
-                Name = "tagme",
-                //Id = 0
-            };
+                NormalizedName = "Owner",
+                Deletable = false,
+                Locked = true,
+                Color = 0xFFFFFF
+            });
 
-            var anon = new User()
+            // If not logged in, the Anonymous virtual user they occupy will be in this role.
+            context.Roles.Add(new Role()
             {
-                Username = "Anonymous",
-                //Id = 0,
-                UseDarkMode = false
-            };
+                NormalizedName = "Anonymous",
+                Deletable = false,
+                Locked = false,
+                Color = 0xBBBBBB
+            });
 
-            context.Update(tagme);
-            context.Update(anon);
+            // Has no permissions, no matter what.
+            context.Roles.Add(new Role()
+            {
+                NormalizedName = "Banned",
+                Deletable = false,
+                Locked = true,
+                Color = 0x996666
+            });
 
             await context.SaveChangesAsync();
         }
