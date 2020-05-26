@@ -45,6 +45,8 @@ namespace NetBooru.Web
                     builder, connectionString);
             });
 
+            _ = services.AddHostedService<DatabaseMigrator>();
+
             _ = services
                 .AddIdentity<User, Role>()
                 .AddDefaultTokenProviders();
@@ -58,9 +60,6 @@ namespace NetBooru.Web
                             policy => policy.RequireClaim(p.Claim));
                     }
                 });
-
-            if (Environment.IsDevelopment())
-                _ = services.AddHostedService<DatabaseMigrator>();
 
             var mvc = services.AddControllersWithViews();
 
