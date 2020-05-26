@@ -36,6 +36,14 @@ namespace NetBooru.Data
             _ = builder.Entity<User>()
                 .Property(u => u.Id)
                 .HasConversion<long>();
+
+            _ = builder.Entity<TagCategory>()
+                .Property(u => u.Id)
+                .HasConversion<long>();
+
+            _ = builder.Entity<Tag>()
+                .Property(u => u.Id)
+                .HasConversion<long>();
         }
     }
 }
