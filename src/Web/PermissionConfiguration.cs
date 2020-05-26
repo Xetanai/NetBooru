@@ -5,6 +5,13 @@ namespace NetBooru.Web
 {
     public class PermissionConfiguration
     {
+        // These are the *internal* names for the roles.
+        // Changing these may cause things to break.
+        public const string AnonymousRole = "Anonymous";
+        public const string BannedRole = "Banned";
+        public const string OwnerRole = "Owner";
+
+        // Permission types. Mapped to claims when managing roles/permissions.
         public static IEnumerable<Permission> Permissions =>
             new List<Permission>
             {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,16 @@ namespace NetBooru.Web
             _ = services
                 .AddIdentity<User, Role>()
                 .AddDefaultTokenProviders();
+
+            _ = services
+                .AddAuthorization(options =>
+                {
+                    foreach (var p in PermissionConfiguration.Permissions)
+                    {
+                        options.AddPolicy(p.Claim,
+                            policy => policy.RequireClaim(p.Claim));
+                    }
+                });
 
             if (Environment.IsDevelopment())
                 _ = services.AddHostedService<DatabaseMigrator>();
