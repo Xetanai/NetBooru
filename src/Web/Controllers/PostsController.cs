@@ -32,14 +32,10 @@ namespace NetBooru.Web.Controllers
             var tokens = query?.Split(' ') ?? Array.Empty<string>();
 
             var tags = _dbContext.Tags
-                .Where(t => tokens.Contains(t.Name))
-                .Select(t =>
-                    (t as AliasTag) != null
-                        ? ((AliasTag)t).Target
-                        : t);
+                .Where(t => tokens.Contains(t.Name));
 
             var posts = await _dbContext.Posts
-                .SelectMany(p => p.PostTags)
+                .SelectMany(p => p.Tags)
                 .Join(tags,
                     pt => pt.Tag,
                     t => t,
@@ -48,7 +44,7 @@ namespace NetBooru.Web.Controllers
                 .Select(x => new PostListViewModel.PostListPost
                 {
                     PostUrl = $"{x.Id} - {(x.Uploader == null ? 0 : x.Uploader.Id)}",
-                    ThumbnailUrl = $"{x.Hash} - {x.Extension}"
+                    ThumbnailUrl = $"{x.Hash}"
                 })
                 .ToListAsync();
 

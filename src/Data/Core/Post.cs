@@ -36,6 +36,11 @@ namespace NetBooru.Data
         /// <summary>
         /// The post's children
         /// </summary>
-        public virtual ICollection<Post?> Children { get; set; } = null!;
+        public virtual ICollection<Post> Children { get; set; } = null!;
+
+        /// <summary>
+        /// The post's tags
+        /// </summary>
+        public virtual ICollection<PostTag> Tags { get; set; } = null!;
     }
 }
