@@ -37,9 +37,10 @@ namespace NetBooru.Data
 
             var timestamp = (ulong)time.ToUnixTimeMilliseconds() - EpochSeconds;
 
-            return ((uint)timestamp << Shifts.Timestamp)
-                     | ((ulong)worker << Shifts.Worker)
-                     | ((ulong)generation << Shifts.Generation);
+            return unchecked(
+                (timestamp << Shifts.Timestamp) |
+                ((ulong)worker << Shifts.Worker) |
+                ((ulong)generation << Shifts.Generation));
         }
 
         /// <summary>
