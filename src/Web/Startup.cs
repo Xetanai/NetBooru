@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NetBooru.Data;
+using NetBooru.Data.Npgsql;
+using NetBooru.Data.Sqlite;
 using NetBooru.Web.Options;
 
 namespace NetBooru.Web
@@ -34,21 +36,37 @@ namespace NetBooru.Web
             _ = services.Configure<LandingOptions>(
                 Configuration.GetSection("Landing"));
 
-            var connectionString =
-                Configuration.GetConnectionString("Database");
+            var provider = Configuration.GetValue<DatabaseProvider?>(
+                "DatabaseProvider");
 
             _ = services.AddDbContext<NetBooruContext>(builder =>
             {
                 _ = builder.UseLazyLoadingProxies();
 
-                _ = DatabaseProvider.ConfigureProvider(
-                    builder, connectionString);
+                _ = provider switch
+                {
+                    DatabaseProvider.Npgsql => builder.UseNpgsql(
+                        Configuration.GetConnectionString("npgsql"),
+                        o => o.MigrationsAssembly(
+                            typeof(NpgsqlDesignTimeContextFactory)
+                            .Assembly.FullName)),
+                    DatabaseProvider.Sqlite => builder.UseSqlite(
+                        Configuration.GetConnectionString("sqlite"),
+                        o => o.MigrationsAssembly(
+                            typeof(SqliteDesignTimeContextFactory)
+                            .Assembly.FullName)),
+                    DatabaseProvider.Memory => builder.UseInMemoryDatabase(
+                        Configuration.GetConnectionString("memory")),
+                    _ => throw new NotSupportedException(
+                        $"Provider {provider} is not supported.")
+                };
             });
 
             _ = services.AddHostedService<DatabaseMigrator>();
 
             _ = services
                 .AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<NetBooruContext>()
                 .AddDefaultTokenProviders();
 
             _ = services

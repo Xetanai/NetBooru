@@ -9,18 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NetBooru.Data;
+using NetBooru.Web.Options;
 
 namespace NetBooru.Web
 {
     internal class DatabaseMigrator : IHostedService
     {
-        private enum MigrationBehavior
-        {
-            Migrate, // NOTE: listed first as this is the default value
-            DropAndMigrate,
-            DropAndCreate
-        }
-
         private readonly MigrationBehavior _behavior;
         private readonly IHostEnvironment _environment;
         private readonly ILogger _logger;
@@ -189,7 +183,7 @@ namespace NetBooru.Web
                 .Select(x => x.Id)
                 .SingleAsync(cancellationToken);
 
-            _ = context.UserRoles.Add(new IdentityUserRole<ulong>
+            _ = context.UserRoles.Add(new IdentityUserRole<long>
             {
                 RoleId = ownerRoleId,
                 UserId = ownerUserId
@@ -197,7 +191,7 @@ namespace NetBooru.Web
 
             foreach (var permission in PermissionConfiguration.Permissions)
             {
-                _ = context.RoleClaims.Add(new IdentityRoleClaim<ulong>
+                _ = context.RoleClaims.Add(new IdentityRoleClaim<long>
                 {
                     ClaimType = permission.Claim,
                     RoleId = ownerRoleId
