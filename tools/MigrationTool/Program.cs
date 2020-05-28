@@ -6,7 +6,7 @@ namespace NetBooru.MigrationTool
 {
     public class Program
     {
-        static async Task<int> Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             var rootCommand = new RootCommand
             {
