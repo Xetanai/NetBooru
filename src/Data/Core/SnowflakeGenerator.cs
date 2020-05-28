@@ -14,7 +14,7 @@ namespace NetBooru.Data
         private readonly byte _workerId;
 
         /// <inheritdoc/>
-        protected SnowflakeGenerator()
+        public SnowflakeGenerator()
             : base()
         {
             _workerId = (byte)Random.Next(byte.MaxValue);

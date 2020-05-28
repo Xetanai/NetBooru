@@ -43,6 +43,9 @@ namespace NetBooru.Web
             {
                 _ = builder.UseLazyLoadingProxies();
 
+                if (Environment.IsDevelopment())
+                    _ = builder.EnableSensitiveDataLogging();
+
                 _ = provider switch
                 {
                     DatabaseProvider.Npgsql => builder.UseNpgsql(

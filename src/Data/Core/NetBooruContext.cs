@@ -53,11 +53,37 @@ namespace NetBooru.Data
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            _ = builder.Entity<User>()
+            _ = builder.Entity<IdentityRoleClaim<ulong>>()
+                .Property(u => u.RoleId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<IdentityUserClaim<ulong>>()
+                .Property(u => u.UserId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<IdentityUserLogin<ulong>>()
+                .Property(u => u.UserId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<IdentityUserRole<ulong>>()
+                .Property(u => u.UserId)
+                .HasConversion<long>();
+            _ = builder.Entity<IdentityUserRole<ulong>>()
+                .Property(u => u.RoleId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<IdentityUserToken<ulong>>()
+                .Property(u => u.UserId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<Post>()
                 .Property(u => u.Id)
                 .HasConversion<long>()
                 .HasValueGenerator<SnowflakeGenerator>();
 
+            _ = builder.Entity<PostMetadata>()
+                .Property(u => u.Id)
+                .HasConversion<long>();
             _ = builder.Entity<ImagePostMetadata>()
                 .HasBaseType<PostMetadata>();
             _ = builder.Entity<AudioPostMetadata>()
@@ -67,17 +93,52 @@ namespace NetBooru.Data
 
             _ = builder.Entity<PostTag>()
                 .HasKey(pt => new { pt.PostId, pt.TagId });
+            _ = builder.Entity<PostTag>()
+                .Property(u => u.PostId)
+                .HasConversion<long>();
+            _ = builder.Entity<PostTag>()
+                .Property(u => u.TagId)
+                .HasConversion<long>();
 
+            _ = builder.Entity<Role>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
+
+            _ = builder.Entity<Tag>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
+
+            _ = builder.Entity<TagAlias>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
             _ = builder.Entity<TagAlias>()
                 .HasIndex(ta => ta.Name)
                 .IsUnique();
 
+            _ = builder.Entity<TagCategory>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
             _ = builder.Entity<TagCategory>()
                 .HasIndex(tc => tc.Name)
                 .IsUnique();
 
             _ = builder.Entity<TagImplication>()
                 .HasKey(ti => new { ti.SourceId, ti.TargetId });
+            _ = builder.Entity<TagImplication>()
+                .Property(u => u.SourceId)
+                .HasConversion<long>();
+            _ = builder.Entity<TagImplication>()
+                .Property(u => u.TargetId)
+                .HasConversion<long>();
+
+            _ = builder.Entity<User>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
 
             base.OnModelCreating(builder);
         }

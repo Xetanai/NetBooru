@@ -183,7 +183,7 @@ namespace NetBooru.Web
                 .Select(x => x.Id)
                 .SingleAsync(cancellationToken);
 
-            _ = context.UserRoles.Add(new IdentityUserRole<long>
+            _ = context.UserRoles.Add(new IdentityUserRole<ulong>
             {
                 RoleId = ownerRoleId,
                 UserId = ownerUserId
@@ -191,7 +191,7 @@ namespace NetBooru.Web
 
             foreach (var permission in PermissionConfiguration.Permissions)
             {
-                _ = context.RoleClaims.Add(new IdentityRoleClaim<long>
+                _ = context.RoleClaims.Add(new IdentityRoleClaim<ulong>
                 {
                     ClaimType = permission.Claim,
                     RoleId = ownerRoleId
