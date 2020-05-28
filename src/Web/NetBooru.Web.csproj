@@ -4,9 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <UserSecretsId>db3020f2-e8bb-44ed-a267-7d092297836b</UserSecretsId>
+    <UserSecretsId>netbooru-Web-db3020f2-e8bb-44ed-a267-7d092297836b</UserSecretsId>
 
-    <DatabaseProvider Condition="'$(DatabaseProvider)' == ''">npgsql</DatabaseProvider>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,26 +13,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Data/Core/NetBooru.Data.csproj" />
-
-    <ProjectReference Include="../Data/InMemory/NetBooru.Data.InMemory.csproj" Condition="'$(DatabaseProvider)' == 'memory'" />
-    <ProjectReference Include="../Data/Npgsql/NetBooru.Data.Npgsql.csproj" Condition="'$(DatabaseProvider)' == 'npgsql'" />
-    <ProjectReference Include="../Data/Sqlite/NetBooru.Data.Sqlite.csproj" Condition="'$(DatabaseProvider)' == 'sqlite'" />
+    <ProjectReference Include="../Data/Npgsql/NetBooru.Data.Npgsql.csproj" />
+    <ProjectReference Include="../Data/Sqlite/NetBooru.Data.Sqlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" />
   </ItemGroup>
-
-  <Target Name="DatabaseUpdate">
-    <Exec Command="dotnet ef database update $(EfMigrationName) -p $(MSBuildProjectFullPath) -s $(EfMigrationStartupProject) --msbuildprojectextensionspath $(EfMigrationExtensionsPath)" />
-  </Target>
-
-  <Target Name="DatabaseDrop">
-    <Exec Command="dotnet ef database drop -p $(MSBuildProjectFullPath) -s $(EfMigrationStartupProject) --msbuildprojectextensionspath $(EfMigrationExtensionsPath)" />
-  </Target>
-
 
 </Project>
