@@ -53,6 +53,11 @@ namespace NetBooru.Data
         /// <inheritdoc/>
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            _ = builder.Entity<User>()
+                .Property(u => u.Id)
+                .HasConversion<long>()
+                .HasValueGenerator<SnowflakeGenerator>();
+
             _ = builder.Entity<ImagePostMetadata>()
                 .HasBaseType<PostMetadata>();
             _ = builder.Entity<AudioPostMetadata>()

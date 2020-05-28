@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace NetBooru.Data
@@ -11,13 +10,13 @@ namespace NetBooru.Data
     {
         private static int Generation;
 
-        private static readonly DateTimeOffset SlashEpoch
+        private static readonly DateTimeOffset Epoch
             = new DateTimeOffset(
                 year: 2020, month: 1, day: 1,
                 hour: 0, minute: 0, second: 0,
                 offset: TimeSpan.Zero);
-        private static readonly uint SlashEpochSeconds
-            = (uint)SlashEpoch.ToUnixTimeSeconds();
+        private static readonly uint EpochSeconds
+            = (uint)Epoch.ToUnixTimeSeconds();
 
         /// <summary>
         /// Generates a unique ulong ID.
@@ -28,7 +27,7 @@ namespace NetBooru.Data
         public static ulong GenerateSnowflake(DateTimeOffset time,
             byte worker = 0)
         {
-            if (time.Year < SlashEpoch.Year)
+            if (time.Year < Epoch.Year)
                 throw new ArgumentOutOfRangeException(nameof(time));
             if ((worker & Bits.Worker) != worker)
                 throw new ArgumentOutOfRangeException(nameof(worker));
@@ -36,7 +35,7 @@ namespace NetBooru.Data
             var generation = unchecked((ushort)Interlocked
                 .Increment(ref Generation));
 
-            var timestamp = (ulong)time.ToUnixTimeMilliseconds() - SlashEpochSeconds;
+            var timestamp = (ulong)time.ToUnixTimeMilliseconds() - EpochSeconds;
 
             return ((uint)timestamp << Shifts.Timestamp)
                      | ((ulong)worker << Shifts.Worker)
@@ -53,7 +52,7 @@ namespace NetBooru.Data
             var timestamp = unchecked(
                 (uint)((snowflake >> Shifts.Timestamp) & Bits.Timestamp));
             return DateTimeOffset.FromUnixTimeMilliseconds(
-                timestamp + SlashEpochSeconds);
+                timestamp + EpochSeconds);
         }
 
         private static class Bits
