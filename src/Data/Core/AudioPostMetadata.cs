@@ -14,6 +14,6 @@ namespace NetBooru.Data
         /// <summary>
         /// Duration of the audio
         /// </summary>
-        public TimeSpan length { get; set; }
+        public TimeSpan Length { get; set; }
     }
 }

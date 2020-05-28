@@ -35,7 +35,7 @@ namespace NetBooru.Web.Controllers
                 .Where(t => tokens.Contains(t.Name));
 
             var posts = await _dbContext.Posts
-                .SelectMany(p => p.Tags)
+                .SelectMany(p => p.PostTags)
                 .Join(tags,
                     pt => pt.Tag,
                     t => t,

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Dynamic;
 
 namespace NetBooru.Data
@@ -9,8 +10,15 @@ namespace NetBooru.Data
     public class PostMetadata
     {
         /// <summary>
+        /// The post id this metadata applies to
+        /// </summary>
+        /// <value></value>
+        public ulong Id { get; set; }
+
+        /// <summary>
         /// The post this metadata applies to
         /// </summary>
+        [ForeignKey(nameof(Id))]
         public virtual Post Post { get; set; } = null!;
 
         /// <summary>

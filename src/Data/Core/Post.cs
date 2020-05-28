@@ -11,7 +11,7 @@ namespace NetBooru.Data
         /// <summary>
         /// The unique ID of the post
         /// </summary>
-        public string Id { get; set; } = null!;
+        public ulong Id { get; set; }
 
         /// <summary>
         /// The user who uploaded the post
@@ -26,7 +26,7 @@ namespace NetBooru.Data
         /// <summary>
         /// The post's filetype-specific metadata
         /// </summary>
-        public virtual PostMetadata Meta { get; set; } = null!;
+        public virtual PostMetadata Metadata { get; set; } = null!;
 
         /// <summary>
         /// The post's parent
@@ -41,6 +41,6 @@ namespace NetBooru.Data
         /// <summary>
         /// The post's tags
         /// </summary>
-        public virtual ICollection<PostTag> Tags { get; set; } = null!;
+        public virtual ICollection<PostTag> PostTags { get; set; } = null!;
     }
 }
