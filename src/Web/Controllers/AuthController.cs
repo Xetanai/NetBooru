@@ -1,9 +1,11 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetBooru.Data;
+using NetBooru.Web.Models;
 
 namespace NetBooru.Web.Controllers
 {
@@ -27,6 +29,19 @@ namespace NetBooru.Web.Controllers
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Account()
+        {
+            return View(new AccountModel(await _userManager.GetUserAsync(User)));
         }
 
         [HttpPost]
@@ -53,7 +68,7 @@ namespace NetBooru.Web.Controllers
 
             await _signInManager.SignInAsync(user, true);
 
-            return LocalRedirect("/");
+            return RedirectToAction(nameof(Account));
         }
 
         [HttpPost]

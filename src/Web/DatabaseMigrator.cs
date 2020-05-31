@@ -112,7 +112,7 @@ namespace NetBooru.Web
             {
                 Id = 1,
                 UserName = PermissionConfiguration.AnonymousRole,
-                NormalizedUserName = PermissionConfiguration.AnonymousRole,
+                NormalizedUserName = PermissionConfiguration.AnonymousRole.ToUpper(),
             });
 
             _ = await context.SaveChangesAsync(cancellationToken);
