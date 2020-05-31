@@ -110,8 +110,9 @@ namespace NetBooru.Web
 
             _ = context.Users.Add(new User
             {
-                UserName = PermissionConfiguration.OwnerRole,
-                NormalizedUserName = PermissionConfiguration.OwnerRole,
+                Id = 1,
+                UserName = PermissionConfiguration.AnonymousRole,
+                NormalizedUserName = PermissionConfiguration.AnonymousRole,
             });
 
             _ = await context.SaveChangesAsync(cancellationToken);
@@ -132,6 +133,7 @@ namespace NetBooru.Web
             // in this role.
             _ = context.Roles.Add(new Role()
             {
+                Id = 1,
                 Name = PermissionConfiguration.AnonymousRole,
                 NormalizedName = PermissionConfiguration.AnonymousRole,
                 Deletable = false,
@@ -142,6 +144,7 @@ namespace NetBooru.Web
             // Has no permissions, no matter what.
             _ = context.Roles.Add(new Role()
             {
+                Id = 3,
                 Name = PermissionConfiguration.BannedRole,
                 NormalizedName = PermissionConfiguration.BannedRole,
                 Deletable = false,
@@ -152,6 +155,7 @@ namespace NetBooru.Web
             // Has all permissions, no matter what.
             _ = context.Roles.Add(new Role()
             {
+                Id = 2,
                 Name = PermissionConfiguration.OwnerRole,
                 NormalizedName = PermissionConfiguration.OwnerRole,
                 Deletable = false,
@@ -177,17 +181,6 @@ namespace NetBooru.Web
                 x => x.NormalizedName == PermissionConfiguration.OwnerRole)
                 .Select(x => x.Id)
                 .SingleAsync(cancellationToken);
-
-            var ownerUserId = await context.Users.Where(
-                x => x.NormalizedUserName == PermissionConfiguration.OwnerRole)
-                .Select(x => x.Id)
-                .SingleAsync(cancellationToken);
-
-            _ = context.UserRoles.Add(new IdentityUserRole<ulong>
-            {
-                RoleId = ownerRoleId,
-                UserId = ownerUserId
-            });
 
             foreach (var permission in PermissionConfiguration.Permissions)
             {
