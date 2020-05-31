@@ -1,0 +1,11 @@
+@model LoginFormModel
+
+<form asp-action="Register" asp-controller="Auth">
+    <label asp-for="username">Username</label>
+    <input asp-for="username" />
+
+    <label asp-for="password" >Password</label>
+    <input asp-for="password" type="password" />
+
+    <input type="submit" />
+</form>
