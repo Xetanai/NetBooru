@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetBooru.Data;
 
 namespace NetBooru.Data.Sqlite.Migrations
 {
     [DbContext(typeof(NetBooruContext))]
-    partial class NetBooruContextModelSnapshot : ModelSnapshot
+    [Migration("20200601033803_HashToByteArray")]
+    partial class HashToByteArray
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,6 +228,7 @@ namespace NetBooru.Data.Sqlite.Migrations
             modelBuilder.Entity("NetBooru.Data.Tag", b =>
                 {
                     b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<long?>("CategoryId")

@@ -9,12 +9,16 @@ namespace NetBooru.Data
     /// </summary>
     public class PostMetadata
     {
-        /// <summary>
-        /// The post id this metadata applies to
-        /// </summary>
-        /// <value></value>
-        public ulong Id { get; set; }
+        private long _id;
 
+        /// <summary>
+        /// The unique ID of the post this metadata applies to
+        /// </summary>
+        public ulong Id
+        {
+            get => unchecked((ulong)_id);
+            set => _ = unchecked(_id = (long)value);
+        }
         /// <summary>
         /// The post this metadata applies to
         /// </summary>

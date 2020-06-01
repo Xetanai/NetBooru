@@ -108,6 +108,7 @@ namespace NetBooru.Data
             _ = builder.Entity<Tag>()
                 .Property(u => u.Id)
                 .HasConversion<long>()
+                .ValueGeneratedNever()
                 .HasValueGenerator<SnowflakeGenerator>();
 
             _ = builder.Entity<TagAlias>()

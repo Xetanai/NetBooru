@@ -126,9 +126,9 @@ namespace NetBooru.Data.Npgsql.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<string>("Hash")
+                    b.Property<byte[]>("Hash")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("bytea");
 
                     b.Property<long?>("ParentId")
                         .HasColumnType("bigint");
@@ -231,7 +231,6 @@ namespace NetBooru.Data.Npgsql.Migrations
             modelBuilder.Entity("NetBooru.Data.Tag", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
                     b.Property<long?>("CategoryId")
