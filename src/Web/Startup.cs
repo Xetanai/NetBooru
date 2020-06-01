@@ -36,6 +36,8 @@ namespace NetBooru.Web
         {
             _ = services.Configure<LandingOptions>(
                 Configuration.GetSection("Landing"));
+            _ = services.Configure<UploadOptions>(
+                Configuration.GetSection("Upload"));
 
             var provider = Configuration.GetValue<DatabaseProvider?>(
                 "DatabaseProvider");

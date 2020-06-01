@@ -10,6 +10,9 @@
 
   <ItemGroup>
     <None Include="appsettings.json;appsettings.*.json" />
+    <None Include="mimetypes.json">
+      <CopyToOutputDir>PreserveNewest</CopyToOutputDir>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
