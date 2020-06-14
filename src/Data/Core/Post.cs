@@ -19,9 +19,9 @@ namespace NetBooru.Data
         public virtual User Uploader { get; set; } = null!;
 
         /// <summary>
-        /// The md5 hash of the file uploaded
+        /// The hash of the file uploaded
         /// </summary>
-        public string Hash { get; set; } = null!;
+        public byte[] Hash { get; set; } = null!;
 
         /// <summary>
         /// The post's filetype-specific metadata

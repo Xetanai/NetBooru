@@ -15,6 +15,7 @@ using NetBooru.Data;
 using NetBooru.Data.Npgsql;
 using NetBooru.Data.Sqlite;
 using NetBooru.Web.Options;
+using NetBooru.Web.Services;
 
 namespace NetBooru.Web
 {
@@ -35,6 +36,8 @@ namespace NetBooru.Web
         {
             _ = services.Configure<LandingOptions>(
                 Configuration.GetSection("Landing"));
+            _ = services.Configure<UploadOptions>(
+                Configuration.GetSection("Upload"));
 
             var provider = Configuration.GetValue<DatabaseProvider?>(
                 "DatabaseProvider");
@@ -66,6 +69,8 @@ namespace NetBooru.Web
             });
 
             _ = services.AddHostedService<DatabaseMigrator>();
+
+            _ = services.AddTransient<FileUploadService>();
 
             _ = services
                 .AddIdentity<User, Role>()

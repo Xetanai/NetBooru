@@ -18,7 +18,7 @@ namespace NetBooru.MigrationTool
             Command = new Command("remove",
                 "Remove migrations from NetBooru database providers")
             {
-                Handler = new MigrationAddCommand()
+                Handler = new MigrationRemoveCommand()
             };
 
             Command.Add(SolutionArgument);
