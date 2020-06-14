@@ -31,29 +31,47 @@ namespace NetBooru.Web.Controllers
 
             var tokens = query?.Split(' ') ?? Array.Empty<string>();
 
-            var tags = _dbContext.Tags
-                .Where(t => tokens.Contains(t.Name));
-
-            var posts = await _dbContext.Posts
-                .SelectMany(p => p.PostTags)
-                .Join(tags,
-                    pt => pt.Tag,
-                    t => t,
-                    (pt, t) => pt.Post)
-                .Distinct()
-                .Select(x => new PostListViewModel.PostListPost
-                {
-                    PostUrl = $"{x.Id} - {(x.Uploader == null ? 0 : x.Uploader.Id)}",
-                    ThumbnailUrl = $"{x.Hash}"
-                })
-                .ToListAsync();
-
-
-            ViewBag.Query = query;
-            return View(new PostListViewModel
+            if (tokens.Length == 0)
             {
-                Posts = posts
-            });
+                var posts = await _dbContext.Posts
+                    .Take(20)
+                    .Select(x => new PostListViewModel.PostListPost
+                    {
+                        PostUrl = $"{x.Id} - {(x.Uploader == null ? 0 : x.Uploader.Id)}",
+                        ThumbnailUrl = $"{x.Hash}"
+                    })
+                    .ToListAsync();
+
+                return View(new PostListViewModel
+                {
+                    Posts = posts
+                });
+            }
+            else
+            {
+                var tags = _dbContext.Tags
+                    .Where(t => tokens.Contains(t.Name));
+
+                var posts = await _dbContext.Posts
+                    .SelectMany(p => p.PostTags)
+                    .Join(tags,
+                        pt => pt.Tag,
+                        t => t,
+                        (pt, t) => pt.Post)
+                    .Distinct()
+                    .Select(x => new PostListViewModel.PostListPost
+                    {
+                        PostUrl = $"{x.Id} - {(x.Uploader == null ? 0 : x.Uploader.Id)}",
+                        ThumbnailUrl = $"{x.Hash}"
+                    })
+                    .ToListAsync();
+
+                return View(new PostListViewModel
+                {
+                    Query = query,
+                    Posts = posts
+                });
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

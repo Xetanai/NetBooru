@@ -4,6 +4,7 @@ namespace NetBooru.Web.Models
 {
     public class PostListViewModel
     {
+        public string? Query { get; set; }
         public List<PostListPost> Posts { get; set; } = null!;
 
         public class PostListPost

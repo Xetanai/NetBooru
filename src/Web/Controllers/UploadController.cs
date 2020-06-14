@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NetBooru.Data;
+using NetBooru.Web.Services;
 
 namespace NetBooru.Web.Controllers
 {
@@ -16,19 +17,22 @@ namespace NetBooru.Web.Controllers
     {
         private readonly NetBooruContext _dbContext;
         private readonly ILogger<UploadController> _logger;
+        private readonly FileUploadService _uploadService;
         private readonly UserManager<User> _userManager;
 
         public UploadController(ILogger<UploadController> logger,
             NetBooruContext dbContext,
+            FileUploadService uploadService,
             UserManager<User> userManager)
         {
             _dbContext = dbContext;
             _logger = logger;
+            _uploadService = uploadService;
             _userManager = userManager;
         }
 
         [HttpPost]
-        [Authorize("CanPostFile")]
+        [Authorize("CanPostFiles")]
         public async Task<IActionResult> Upload (
             IFormFile file,
             string[]? initialTags)
@@ -37,26 +41,22 @@ namespace NetBooru.Web.Controllers
 
             var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-            using var hashSlingingSlasher = SHA256.Create();
-            var hash = await hashSlingingSlasher.ComputeHashAsync(file.OpenReadStream());
-
-            var finalFileHash = BitConverter.ToString(hash).Replace("-","");
-            var hashPre = finalFileHash.Substring(0, 3);
-
-            using var destFile = System.IO.File.Create(Path.Combine(hashPre, finalFileHash));
-            await file.OpenReadStream().CopyToAsync(destFile);
+            var upload = await _uploadService.UploadFileAsync(file);
 
             // TODO: Generate Metadata
             // TODO: Tokenize supplied tags and apply
-            var newPost = new Post()
+            var newPost = new Post
             {
                 Uploader = user,
-                Hash = finalFileHash,
-                Metadata = new PostMetadata()
+                Hash = upload.Hash,
+                Metadata = new PostMetadata
+                {
+                    MimeType = upload.MediaType
+                }
             };
 
-            _dbContext.Posts.Add(newPost);
-            await _dbContext.SaveChangesAsync();
+            _ = _dbContext.Posts.Add(newPost);
+            _ = await _dbContext.SaveChangesAsync();
 
             // TODO: Less magic thx
             return Created("http://localhost:5000/Post/"+ newPost.Id, true);

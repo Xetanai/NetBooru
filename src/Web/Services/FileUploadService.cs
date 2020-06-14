@@ -70,6 +70,8 @@ namespace NetBooru.Web.Services
             if (!TryIdentifyMimeType(tempFile, out var mimeType, options))
                 throw new Exception("Could not identify MIME type");
 
+            _ = Directory.CreateDirectory(
+                Path.GetDirectoryName(fileLocation)!);
             File.Move(tempFile, fileLocation);
 
             return new UploadedFile(hash, mimeType);
@@ -149,7 +151,8 @@ namespace NetBooru.Web.Services
                 foreach (var pattern in patterns)
                 {
                     if (PassesPattern(pool, stream, pattern))
-                        return PassesTests(pool, stream, pattern.Children);
+                        return pattern.Children == null
+                            || PassesTests(pool, stream, pattern.Children);
                 }
 
                 return false;
@@ -158,8 +161,11 @@ namespace NetBooru.Web.Services
             static bool PassesPattern(MemoryPool<byte> pool,
                 FileStream stream, UploadOptions.MimeTypePattern pattern)
             {
+                var mask = pattern.GetMaskAsBytes();
+                var value = pattern.GetValueAsBytes();
+
                 var start = pattern.OffsetIntoFile;
-                var length = pattern.Value.Length + pattern.RangeLength;
+                var length = value.Length + pattern.RangeLength;
                 if (start < 0)
                     start = 0;
 
@@ -178,10 +184,9 @@ namespace NetBooru.Web.Services
                 // (vectorization!)
                 for (int x = 0; x < pattern.RangeLength; x++)
                 {
-                    for (int y = 0; y < pattern.Value.Length; y++)
+                    for (int y = 0; y < value.Length; y++)
                     {
-                        if ((span[x + y] & pattern.Mask[y]) !=
-                            (pattern.Value[y] & pattern.Mask[y]))
+                        if ((span[x + y] & mask[y]) != (value[y] & mask[y]))
                             goto continueOuter;
                     }
 
